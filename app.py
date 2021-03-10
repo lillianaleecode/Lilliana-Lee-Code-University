@@ -3,10 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 # pip install flask-sqlalchemy
 from datetime import datetime
 
+from flask_wtf import FlaskForm
+from wtforms import TextField, BooleanField, TextAreaField, SubmitField
+from forms import ContactForm
+import pandas as pd
+#https://medium.com/analytics-vidhya/flask-build-contact-form-2689520adf23
+
 app = Flask (__name__ , template_folder="templates")
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///test.db'
 #initialize the database
 db = SQLAlchemy(app) 
+app.secret_key = 'secretKey' #para el contatc form
 
 #create a database model
 class Todolist(db.Model):
@@ -18,6 +25,30 @@ class Todolist(db.Model):
     #create a function to return a string when  we add
     def __repr__(self):
         return '<Task %r>' % self.id
+
+class ContactForm(FlaskForm):
+    name = TextField("Name")
+    email = TextField("Email")
+    subject = TextField("Subject")
+    message = TextAreaField("Message")
+    submit = SubmitField("Send")
+
+@app.route('/contactus', methods=["GET","POST"])
+def get_contact():
+    form = ContactForm()
+    # here, if the request type is a POST we get the data on contat
+    #forms and save them else we return the contact forms html page
+    if request.method == 'POST':
+        name =  request.form["name"]
+        email = request.form["email"]
+        subject = request.form["subject"]
+        message = request.form["message"]
+        res = pd.DataFrame({'name':name, 'email':email, 'subject':subject ,'message':message}, index=[0])
+        res.to_csv('./contactusMessage.csv')
+        print("The data are saved !")
+    else:
+        return render_template('contact.html', form=form)
+
 
 @app.route('/', methods=['POST','GET'])
 def index():
@@ -63,19 +94,18 @@ def update(id):
     else:
         return render_template('update.html', task=task)
 
-if __name__ == "__main__":
-    app.run(debug=True)
 
 
 
-#no lo estoy usando:
-@app.route('/')
-def index():
-  return render_template('index.html')
 
-@app.route('/studyprogram')
+@app.route('/study')
 def studyprogram():
     return render_template('studyprogram.html')
 
+@app.route('/testimonials')
+def stanford_page():
+    return render_template('testimonials.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
+

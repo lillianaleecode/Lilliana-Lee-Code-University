@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<tittle>WELCOME TO OUR TESTIMONIALS </tittle>
+{% endblock %}
+
+{% block body%}
+
+<h1>this is testimonials page</h1>
+<a href="{{ url_for('index') }}"><button>Take me back to home:)</button></a>
+
+<div class="contact">
+    <h3>Contact us</h3>
+<!-- Just here i use "url_for" to call the function get_contact.
+         This function return the html code of our contact page-->
+    <form action="{{ url_for('get_contact') }}" method=post>
+        <div>
+            <!-- name forms -->
+            <p>
+                {{ form.name.label }} <br>
+                {{ form.name(placeholder='Your name') }}
+            </p>
+            <!-- email forms -->
+            <p>
+                {{ form.email.label }} <br>
+                {{ form.email(placeholder='Your e-mail ...') }}
+            </p>
+            <!-- Subject of your request -->
+            <p>
+                {{ form.subject.label }}<br>
+                {{form.subject(placeholder='Your subject ...')}}
+            </p>
+            <!-- Content of your request -->
+            <p>
+                {{ form.message.label }}<br>
+                {{ form.message(placeholder='write your request ...') }}
+            </p>
+            <!-- Submit button -->
+            <p>
+                {{ form.submit }}
+            </p>
+        </div>
+    </form>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,1 +1,14 @@
-<h1>Hello study program</h1>
+{% extends 'base.html' %}
+
+{% block head %}
+<tittle>WELCOME TO OUR STUDY PROGRAMS </tittle>
+{% endblock %}
+
+{% block body%}
+
+<h1>this is study program page</h1>
+<a href="{{ url_for('index') }}"><button>Take me back to home:)</button></a>
+
+<p><img src="https://code.berlin/content/uploads/2e915f5d-1800x1200.jpg" style="height: 250px;" class="img"></p>
+
+{% endblock %}
