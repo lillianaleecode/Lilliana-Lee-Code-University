@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 # pip install flask-sqlalchemy
 from datetime import datetime
 
-app = Flask (__name__ )
+app = Flask (__name__ , template_folder="templates")
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///test.db'
 #initialize the database
 db = SQLAlchemy(app) 
@@ -62,6 +62,20 @@ def update(id):
 
     else:
         return render_template('update.html', task=task)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+
+#no lo estoy usando:
+@app.route('/')
+def index():
+  return render_template('index.html')
+
+@app.route('/studyprogram')
+def studyprogram():
+    return render_template('studyprogram.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
