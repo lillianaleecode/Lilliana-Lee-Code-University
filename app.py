@@ -3,10 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 # pip install flask-sqlalchemy
 from datetime import datetime
 
-from flask_wtf import FlaskForm
-from wtforms import TextField, BooleanField, TextAreaField, SubmitField
-from forms import ContactForm
-import pandas as pd
+# from flask_wtf import FlaskForm
+# from wtforms import TextField, BooleanField, TextAreaField, SubmitField
+# from forms import ContactForm
+# import pandas as pd
 #https://medium.com/analytics-vidhya/flask-build-contact-form-2689520adf23
 
 app = Flask (__name__ , template_folder="templates")
@@ -26,12 +26,12 @@ class Todolist(db.Model):
     def __repr__(self):
         return '<Task %r>' % self.id
 
-class ContactForm(FlaskForm):
-    name = TextField("Name")
-    email = TextField("Email")
-    subject = TextField("Subject")
-    message = TextAreaField("Message")
-    submit = SubmitField("Send")
+# class ContactForm(FlaskForm):
+#     name = TextField("Name")
+#     email = TextField("Email")
+#     subject = TextField("Subject")
+#     message = TextAreaField("Message")
+#     submit = SubmitField("Send")
 
 @app.route('/contactus', methods=["GET","POST"])
 def get_contact():
